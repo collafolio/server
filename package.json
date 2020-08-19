@@ -12,7 +12,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mongoose": "^5.9.29"
+    "mongoose": "^5.10.0"
   },
   "devDependencies": {
     "colors": "^1.4.0",

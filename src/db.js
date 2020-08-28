@@ -1,15 +1,20 @@
-require('dotenv').config();
+const { development, production } = require('./config');
 const mongoose = require('mongoose');
 
-mongoose.Promise = global.Promise; // Node 의 네이티브 Promise 사용
+mongoose.Promise = global.Promise;
 
 mongoose
-  .connect(process.env.MONGODB_URI, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-  })
+  .connect(
+    process.env.NODE_ENV === 'production'
+      ? production.mongodb
+      : development.mongodb,
+    {
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+    },
+  )
   .then((response) => {
-    console.log('Connected to mongodb');
+    console.log('connected to mongodb');
   })
   .catch((e) => {
     console.error(e);

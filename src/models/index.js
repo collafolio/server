@@ -1,8 +1,6 @@
-// import schemas and export as a model
 module.exports = {
   User: require('./User'),
-  Resume: require('./Resume'),
-  Recruit: require('./Recruit'),
+  Spec: require('./Spec'),
   Team: require('./Team'),
-  Project: require('./Project'),
+  Post: require('./Post'),
 };

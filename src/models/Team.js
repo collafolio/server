@@ -3,26 +3,11 @@ const { Schema } = mongoose;
 
 const teamSchema = new Schema(
   {
-    teamname: String,
-    leader_id: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
-      required: true,
-    },
-    member_ids: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
-      },
-    ],
-    project_ids: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Project',
-        required: false,
-      },
-    ],
+    name: { type: String, required: true },
+    hiring: { type: String, required: true, default: false }, // 구인중 ? true : false
+    about: String,
+    members: [{ type: Schema.Types.ObjectId, ref: 'User' }], // 리더는 0번째 인덱스
+    posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
   },
   { timestamps: true },
 );

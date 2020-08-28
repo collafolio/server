@@ -6,8 +6,8 @@
   "author": "raram2 <gkfka1189@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "NODE_PATH=src node src",
-    "start:dev": "NODE_PATH=src nodemon --watch src/ src/index.js"
+    "start": "NODE_ENV=production NODE_PATH=src node src",
+    "start:dev": "NODE_ENV=development NODE_PATH=src nodemon --watch src/ src/index.js"
   },
   "dependencies": {
     "cors": "^2.8.5",

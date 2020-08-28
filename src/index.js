@@ -1,22 +1,25 @@
-require('dotenv').config();
-require('./db');
+const { development, production } = require('./config');
+const mode = process.env.NODE_ENV;
 
+console.log(`mode: ${mode}`);
+
+require('./db');
 const express = require('express');
 const cors = require('cors');
 
 const app = express();
-const port = process.env.PORT || 8000;
+const port = mode === 'production' ? production.port : development.port;
 
-app.use(express.json()); // v4.16 이후 내장 모듈로 다시 들어옴 (body-parser 모듈 대체)
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
     origin: ['http://localhost:3000'],
-    method: ['GET', 'POST'],
-    credentials: true, // allow cookie
+    method: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true, // allow cookies
   }),
 );
 
 app.listen(port, () => {
-  console.log(`Server listen on ${port}`);
+  console.log(`server listen on ${port}`);
 });

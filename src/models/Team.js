@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const teamSchema = new Schema(
+const TeamSchema = new Schema(
   {
     name: { type: String, required: true },
     hiring: { type: String, required: true, default: false }, // 구인중 ? true : false
@@ -12,4 +12,4 @@ const teamSchema = new Schema(
   { timestamps: true },
 );
 
-module.exports = mongoose.model('Team', teamSchema);
+module.exports = mongoose.model('Team', TeamSchema);

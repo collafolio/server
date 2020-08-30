@@ -1,1 +1,7 @@
-// import controllers and export as an api
+module.exports = {
+  auth: require('./auth'),
+  user: require('./user'),
+  post: require('./post'),
+  profile: require('./profile'),
+  spec: require('./spec'),
+};

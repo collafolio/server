@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const postSchema = new Schema(
+const PostSchema = new Schema(
   {
     title: { type: String, required: true },
     body: {
@@ -18,17 +18,16 @@ const postSchema = new Schema(
         about: String,
       },
     },
+    comments: [{ body: String }],
     meta: {
       upto: Date,
       expired: Boolean,
       closed: Boolean,
       favs: Number,
+      visits: Number,
     },
-    visitors: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-    applicants: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-    comments: [{ body: String }],
   },
   { timestamps: true },
 );
 
-module.exports = mongoose.model('Post', postSchema);
+module.exports = mongoose.model('Post', PostSchema);

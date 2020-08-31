@@ -26,6 +26,8 @@ const PostSchema = new Schema(
       favs: Number,
       visits: Number,
     },
+    author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    applies: { type: Schema.Types.ObjectId, ref: 'Apply' },
   },
   { timestamps: true },
 );

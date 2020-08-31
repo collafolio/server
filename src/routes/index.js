@@ -15,7 +15,7 @@ router.get('/posts', post.findAll);
 /*
  * /api/post
  */
-router.get('/post', post.find);
+router.get('/post/:id', post.find);
 router.post('/post', post.create);
 router.patch('/post', post.update);
 router.delete('/post', post.delete);

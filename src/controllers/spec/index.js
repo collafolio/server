@@ -1,5 +1,5 @@
 module.exports = {
-  create: require(''),
-  find: require(''),
-  update: require(),
+  create: require('./createSpec'),
+  find: require('./findSpec'),
+  update: require('./updateSpec'),
 };

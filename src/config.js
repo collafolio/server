@@ -7,11 +7,13 @@ if (dotenvResult.error) {
 
 module.exports = {
   development: {
-    port: process.env.PORT || 4000,
-    mongodb: process.env.MONGODB_URI_LOCAL,
+    port: 4000,
+    secret: process.env.JWT_SECRET,
+    mongodb: process.env.MONGODB_LOCAL,
   },
   production: {
-    port: process.env.PORT || 8080,
-    mongodb: process.env.MONGODB_URI_CLOUD,
+    port: process.env.PORT,
+    secret: process.env.JWT_SECRET,
+    mongodb: process.env.MONGODB_CLOUD,
   },
 };

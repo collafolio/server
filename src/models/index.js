@@ -1,6 +1,5 @@
 module.exports = {
-  User: require('./User'),
-  Team: require('./Team'),
-  Post: require('./Post'),
-  Apply: require('./Apply'),
+  User: require('./user.model'),
+  Post: require('./post.model'),
+  Apply: require('./apply.model'),
 };

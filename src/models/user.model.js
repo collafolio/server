@@ -64,7 +64,6 @@ const UserSchema = new Schema(
     profile: ProfileSchema,
     spec: SpecSchema,
     favList: [{ type: Schema.Types.ObjectId, ref: 'Post' }], // 좋아요 누른 게시물 리스트
-    // belongTo: { type: Schema.Types.ObjectId, ref: 'Team' }, // 소속된 팀
   },
   { timestamps: true },
 );

@@ -1,7 +1,8 @@
 module.exports = {
-  auth: require('./auth'),
-  user: require('./user'),
-  post: require('./post'),
-  profile: require('./profile'),
-  spec: require('./spec'),
+  auth: require('./auth.controller'),
+  user: require('./user.controller'),
+  profile: require('./profile.controller'),
+  spec: require('./spec.controller'),
+  post: require('./post.controller'),
+  apply: require('./apply.controller'),
 };

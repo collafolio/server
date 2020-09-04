@@ -1,8 +1,14 @@
 const { User } = require('../models');
 
-// Create user document
 exports.signup = (req, res) => {
-  res.status(201).send('user create success');
+  const user = new User({ email: req.body.email }); // create user document
+  user.save((err, user) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
+    }
+    res.status(201).send('가입 성공');
+  });
 };
 
 // Delete user document

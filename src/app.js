@@ -1,6 +1,6 @@
-const { development, production } = require('./config');
 const express = require('express');
 const mongoose = require('mongoose');
+const { development, production } = require('./configs/db.config');
 const cors = require('cors');
 const routes = require('./routes');
 

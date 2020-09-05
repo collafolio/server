@@ -1,17 +1,32 @@
-const { User } = require('../models');
+const {
+  createUserWithEmail,
+  deleteUserById,
+} = require('../services/user.service');
 
 exports.signup = (req, res) => {
-  const user = new User({ email: req.body.email }); // create user document
-  user.save((err, user) => {
-    if (err) {
-      res.status(500).send({ message: err });
-      return;
-    }
-    res.status(201).send('가입 성공');
-  });
+  createUserWithEmail(req.body.email)
+    .then((user) => {
+      // query resolved
+      if (!user) {
+        return res.status(204).end();
+      }
+      return res.status(201).send(user);
+    })
+    .catch((err) => {
+      // query rejected
+      return res.status(500).send({ message: err });
+    });
 };
 
-// Delete user document
 exports.signout = (req, res) => {
-  res.status(200).send('user delete success');
+  deleteUserById(req.body.id)
+    .then((user) => {
+      if (!user) {
+        return res.status(204).end();
+      }
+      return res.status(200).send(user);
+    })
+    .catch((err) => {
+      return res.status(500).send({ message: err });
+    });
 };

@@ -1,9 +1,7 @@
-const { apply } = require('../controllers');
+const { applyController } = require('../controllers');
 
 module.exports = (router) => {
-  router.get('/applies', apply.getAllApplies);
-  router.get('/apply', apply.getApply);
-  router.post('/apply', apply.createApply);
-  router.patch('/apply', apply.updateApply);
-  router.delete('/apply', apply.deleteApply);
+  router.post('/applies', applyController.createApply);
+  router.patch('/applies/:applyid', applyController.updateApplyStatus);
+  router.delete('/applies/:applyid', applyController.deleteApply);
 };

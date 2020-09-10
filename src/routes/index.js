@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { authUserByParam } = require('../middlewares/authUser');
 
 router.use(function (req, res, next) {
   res.header(
@@ -8,11 +9,17 @@ router.use(function (req, res, next) {
   next();
 });
 
-require('./auth.routes')(router);
+// userid 파라미터가 들어가는 모든 엔드포인트에 대해 콜백(미들웨어) 적용
+router.param('userid', authUserByParam);
+
+require('./account.routes')(router);
 require('./user.routes')(router);
 require('./profile.routes')(router);
-require('./spec.routes')(router);
 require('./post.routes')(router);
 require('./apply.routes')(router);
+
+router.use('*', (req, res) => {
+  res.status(404).json({ message: 'Not Found' });
+});
 
 module.exports = router;

@@ -1,17 +1,11 @@
-const { User } = require('../models');
-
-exports.signup = (req, res) => {
-  const user = new User({ email: req.body.email }); // create user document
-  user.save((err, user) => {
-    if (err) {
-      res.status(500).send({ message: err });
-      return;
-    }
-    res.status(201).send('가입 성공');
-  });
+exports.getUserProfile = (req, res) => {
+  res.status(200).send('User profile found');
 };
 
-// Delete user document
-exports.signout = (req, res) => {
-  res.status(200).send('user delete success');
+exports.getUserPosts = (req, res) => {
+  res.status(200).send('User posts found');
+};
+
+exports.getUserApplies = (req, res) => {
+  res.status(200).send('User applies found');
 };

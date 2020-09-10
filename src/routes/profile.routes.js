@@ -1,6 +1,7 @@
-const { profile } = require('../controllers');
+const { profileController } = require('../controllers');
 
 module.exports = (router) => {
-  router.post('/user/profile', profile.createProfile);
-  router.patch('/user/profile', profile.updateProfile);
+  router.post('/profiles', profileController.createProfile);
+  router.patch('/profiles/:profileid', profileController.updateProfile);
+  router.delete('/profiles/:profileid', profileController.deleteProfile);
 };

@@ -1,11 +1,7 @@
-const verify = require('../middlewares/verify');
-const { user } = require('../controllers');
+const { userController } = require('../controllers');
 
 module.exports = (router) => {
-  router.post(
-    '/user',
-    [verify.checkEmailValue, verify.checkDuplicateEmail],
-    user.signup,
-  );
-  router.delete('/user', user.signout);
+  router.get('/users/:userid/profile', userController.getUserProfile);
+  router.get('/users/:userid/posts', userController.getUserPosts);
+  router.get('/users/:userid/applies', userController.getUserApplies);
 };

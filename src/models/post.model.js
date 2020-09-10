@@ -3,31 +3,33 @@ const { Schema } = mongoose;
 
 const PostSchema = new Schema(
   {
+    author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     title: { type: String, required: true },
     body: {
       wanted: {
-        position: String,
-        number: Number,
-        tasks: [String],
-        requisites: [String],
-        channel: String,
-        location: String,
+        position: { type: String, required: true },
+        number: { type: Number, required: true },
+        tasks: [{ type: String, required: true }],
+        requisites: [{ type: String, required: true }],
+        channel: { type: String, required: true },
+        location: { type: String, required: true },
       },
       project: {
         name: String,
         about: String,
+        startAt: Date,
+        weeks: Number,
       },
     },
-    comments: [{ body: String }],
+    upto: { type: Date, required: true },
     meta: {
-      upto: Date,
-      expired: Boolean,
-      closed: Boolean,
-      favs: Number,
-      visits: Number,
+      expired: { type: Boolean, default: false },
+      closed: { type: Boolean, default: false },
+      favs: { type: Number, default: 0 },
+      visits: { type: Number, default: 0 },
     },
-    author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    applies: { type: Schema.Types.ObjectId, ref: 'Apply' },
+    tags: [String],
+    applies: [{ type: Schema.Types.ObjectId, ref: 'Apply' }],
   },
   { timestamps: true },
 );

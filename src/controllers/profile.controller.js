@@ -1,9 +1,11 @@
-const { User } = require('../models');
-
 exports.createProfile = (req, res) => {
-  res.status(201).send('profile create success');
+  res.status(201).send('Profile create success');
 };
 
 exports.updateProfile = (req, res) => {
-  res.status(201).send('profile update success');
+  res.status(200).send('Profile update success');
+};
+
+exports.deleteProfile = (req, res) => {
+  res.status(204).send('Profile delete success');
 };

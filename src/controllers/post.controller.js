@@ -1,21 +1,19 @@
-const { Post } = require('../models');
-
-exports.createPost = (req, res) => {
-  res.status(201).send('post create success');
+exports.getAllPosts = (req, res) => {
+  res.status(200).send('Posts found');
 };
 
 exports.getPost = (req, res) => {
-  res.status(200).send('one post get success');
+  res.status(200).send('Post found');
 };
 
-exports.getAllPosts = (req, res) => {
-  res.status(200).send('all posts get success');
+exports.createPost = (req, res) => {
+  res.status(201).send('Post create success');
 };
 
 exports.updatePost = (req, res) => {
-  res.status(200).send('post update success');
+  res.status(200).send('Post update success');
 };
 
 exports.deletePost = (req, res) => {
-  res.status(200).send('post delete success');
+  res.status(200).send('Post delete success');
 };

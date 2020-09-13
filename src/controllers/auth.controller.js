@@ -1,8 +1,6 @@
-const {
-  createUserWithEmail,
-  findUserByEmail,
-  deleteUserById,
-} = require('../services');
+const { createUserWithEmail } = require('../services/createDocs');
+const { findUserByEmail } = require('../services/findDocs');
+const { deleteUserById } = require('../services/deleteDocs');
 const { generateToken } = require('../utils/tokenUtils');
 
 exports.createLocalUser = (req, res) => {

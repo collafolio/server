@@ -12,7 +12,7 @@ router.use(function (req, res, next) {
 // userid 파라미터가 들어가는 모든 엔드포인트에 대해 콜백(미들웨어) 적용
 router.param('userid', authUserByParam);
 
-require('./account.routes')(router);
+require('./auth.routes')(router);
 require('./user.routes')(router);
 require('./profile.routes')(router);
 require('./post.routes')(router);

@@ -3,7 +3,7 @@ const { auth } = require('../configs');
 
 exports.generateToken = (payload) => {
   return new Promise((resolve, reject) => {
-    jwt.sign(payload, auth.jwtSecret, { expiresIn: '7d' }, (err, encoded) => {
+    jwt.sign(payload, auth.jwtSecret, (err, encoded) => {
       if (err) {
         reject(err);
       }

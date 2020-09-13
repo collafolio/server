@@ -1,19 +1,22 @@
-const { createUserWithEmail } = require('../services/createDocs');
-const { findUserByEmail } = require('../services/findDocs');
-const { deleteUserById } = require('../services/deleteDocs');
+const service = require('../services/session.service');
 const { generateToken } = require('../utils/tokenUtils');
 
 exports.createLocalUser = (req, res) => {
-  createUserWithEmail(req.body.email)
+  service
+    .createLocalUserWithEmail(req.body.email)
     .then(async (user) => {
       if (!user) {
         return res.status(404).send({ message: 'User not found' });
       }
-      const accessToken = await generateToken({ id: user.id });
+      const { id, email, meta } = user;
+      const accessToken = await generateToken({ id });
       return res
         .status(201)
-        .cookie('x-access-token', accessToken, { httpOnly: true })
-        .send(user);
+        .cookie('x-access-token', accessToken, {
+          httpOnly: true,
+          maxAge: 1000 * 60 * 60 * 24 * 7,
+        })
+        .send({ id, email, meta });
     })
     .catch((error) => {
       return res.status(500).send({ error });
@@ -21,12 +24,13 @@ exports.createLocalUser = (req, res) => {
 };
 
 exports.loginLocalUser = (req, res) => {
-  findUserByEmail(req.body.email)
+  service
+    .findLocalUserByEmail(req.body.email)
     .then(async (user) => {
       if (!user) {
         return res.status(404).send({ message: 'User not found' });
       }
-      const { id, email } = user;
+      const { id, email, meta } = user;
       try {
         const accessToken = await generateToken({ id }); // object로 넣어줘야 options 설정도 가능
         console.log(accessToken);
@@ -35,8 +39,11 @@ exports.loginLocalUser = (req, res) => {
          */
         return res
           .status(200)
-          .cookie('x-access-token', accessToken, { httpOnly: true })
-          .send({ id, email });
+          .cookie('x-access-token', accessToken, {
+            httpOnly: true, // cookie only used for http request (client script can't get this)
+            maxAge: 1000 * 60 * 60 * 24 * 7, // === '7d', maxAge requires Number
+          })
+          .send({ id, email, meta });
       } catch (error) {
         return res.status(500).send({ error });
       }
@@ -49,17 +56,21 @@ exports.loginLocalUser = (req, res) => {
 exports.logoutUser = (req, res) => {
   res
     .status(204)
-    .cookie('x-access-token', null, { httpOnly: true, maxAge: 0 })
+    .cookie('x-access-token', null, { httpOnly: true, maxAge: 0 }) // maxAge 0이면 쿠키 소멸 상태
     .send({ message: 'Logout success' });
 };
 
 exports.deleteUser = (req, res) => {
-  deleteUserById(req.params.userid)
+  service
+    .deleteUserById(req.params.userid)
     .then((user) => {
       if (!user) {
         return res.status(404).send({ message: 'User not found' });
       }
-      return res.status(200).send({ message: 'Signout success' });
+      return res
+        .status(204)
+        .cookie('x-access-token', null, { httpOnly: true, maxAge: 0 })
+        .send({ message: 'Successfully deleted user' });
     })
     .catch((error) => {
       return res.status(500).send({ error });

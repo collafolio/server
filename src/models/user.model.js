@@ -3,10 +3,7 @@ const { Schema } = mongoose;
 
 const UserSchema = new Schema(
   {
-    local: {
-      email: { type: String, required: true, unique: true },
-      confirmed: { type: Boolean, default: false }, // email 인증 여부
-    },
+    email: { type: String, required: true, unique: true },
     social: {
       facebook: {
         id: String,
@@ -18,6 +15,7 @@ const UserSchema = new Schema(
       },
     },
     meta: {
+      confirmed: { type: Boolean, default: false }, // email 인증 여부
       /*
        * 클라이언트 데이터 리패칭 판단 데이터
        * refetch api 만들고, refetch 요청 성공시 다시 updated:false로 변경하는 after-hook 만들기
@@ -33,6 +31,7 @@ const UserSchema = new Schema(
      * after-hook으로 this.meta.updated:true로 변경
      */
     notices: [{ type: Schema.Types.ObjectId, ref: 'Notice' }],
+    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
     favPosts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
   },
   { timestamps: true },

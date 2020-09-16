@@ -1,5 +1,9 @@
 const { Post } = require('../models');
 
-module.exports = {
-  initPosts: () => {},
+exports.dropCollection = () => {
+  return Post.collection.drop();
+};
+
+exports.deletePostsByUserId = (userId) => {
+  return Post.deleteMany({ author: userId }).exec();
 };

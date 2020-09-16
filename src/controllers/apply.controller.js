@@ -1,11 +1,11 @@
-exports.createApply = (req, res) => {
-  res.status(201).send('Apply create success');
+exports.createApplication = (req, res) => {
+  res.status(200).end();
 };
 
 exports.updateApplyStatus = (req, res) => {
-  res.status(200).send('Apply state updated');
+  res.status(200).end();
 };
 
-exports.deleteApply = (req, res) => {
-  res.status(200).send('Apply delete success');
+exports.deleteApplication = (req, res) => {
+  res.status(200).end();
 };

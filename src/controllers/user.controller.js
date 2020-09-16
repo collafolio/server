@@ -1,11 +1,11 @@
-exports.getUserProfile = (req, res) => {
-  res.status(200).send('User profile found');
+exports.getUserResume = (req, res) => {
+  res.status(200).end();
 };
 
 exports.getUserPosts = (req, res) => {
-  res.status(200).send('User posts found');
+  res.status(200).end();
 };
 
-exports.getUserApplies = (req, res) => {
-  res.status(200).send('User applies found');
+exports.getUserApplications = (req, res) => {
+  res.status(200).end();
 };

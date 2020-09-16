@@ -1,19 +1,19 @@
 exports.getAllPosts = (req, res) => {
-  res.status(200).send('Posts found');
+  res.status(200).end();
 };
 
 exports.getPost = (req, res) => {
-  res.status(200).send('Post found');
+  res.status(200).end();
 };
 
 exports.createPost = (req, res) => {
-  res.status(201).send('Post create success');
+  res.status(200).end();
 };
 
 exports.updatePost = (req, res) => {
-  res.status(200).send('Post update success');
+  res.status(200).end();
 };
 
 exports.deletePost = (req, res) => {
-  res.status(200).send('Post delete success');
+  res.status(200).end();
 };

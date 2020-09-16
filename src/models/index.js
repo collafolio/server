@@ -1,8 +1,6 @@
 module.exports = {
   User: require('./user.model'),
-  Profile: require('./profile.model'),
+  Resume: require('./resume.model'),
   Post: require('./post.model'),
-  Apply: require('./apply.model'),
-  Comment: require('./comment.model'),
-  Notice: require('./notice.model'),
+  Application: require('./application.model'),
 };

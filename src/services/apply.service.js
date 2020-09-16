@@ -1,5 +1,9 @@
-const { Apply } = require('../models');
+const { Application } = require('../models');
 
-module.exports = {
-  initApplies: () => {},
+exports.dropCollection = () => {
+  return Application.collection.drop();
+};
+
+exports.deleteAppliesByUserId = (userId) => {
+  return Application.deleteMany({ applicant: userId }).exec();
 };

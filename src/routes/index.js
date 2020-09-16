@@ -1,25 +1,20 @@
 const router = require('express').Router();
-// const { authUserByParam } = require('../middlewares/authUser');
+const authHandler = require('../middlewares/authHandler');
+const errorHandler = require('../middlewares/errorHandler');
 
-router.use(function (req, res, next) {
-  res.header(
-    'Access-Control-Allow-Headers',
-    'x-access-token, Origin, Content-Type, Accept',
-  );
-  next();
-});
-
-// userid 파라미터가 들어가는 모든 엔드포인트에 대해 콜백(미들웨어) 적용
-// router.param('userid', authUserByParam);
+// user_id 파라미터가 들어가는 모든 엔드포인트에 대해 미들웨어 적용
+router.param('user_id', authHandler.verifyUser);
 
 require('./session.routes')(router);
 require('./user.routes')(router);
-require('./profile.routes')(router);
+require('./resume.routes')(router);
 require('./post.routes')(router);
 require('./apply.routes')(router);
 
-router.use('*', (req, res) => {
-  res.status(404).json({ message: 'Not Found' });
-});
+// 인자가 4개인 경우 override를 통해 에러 핸들링 미들웨어로 사용된다
+router.use(errorHandler.serverError);
+
+// 앞에서 라우트 주소와 매치되지 않은 모든 요청에 대해 다음 응답을 보낸다
+router.use('*', errorHandler.noRouteMatch);
 
 module.exports = router;

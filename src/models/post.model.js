@@ -1,35 +1,43 @@
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
+const Schema = mongoose.Schema;
+
+const PositionSchema = new Schema({
+  category: { type: String, required: true },
+  position: { type: String, required: true },
+});
+
+const ProjectSchema = new Schema({
+  name: { type: String, required: true },
+  description: String,
+  members: [PositionSchema],
+  weeks: Number,
+  startAt: { type: Date, required: true },
+});
 
 const PostSchema = new Schema(
   {
-    author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    title: { type: String, required: true },
-    body: {
-      wanted: {
-        position: { type: String, required: true },
-        number: { type: Number, required: true },
-        tasks: [{ type: String, required: true }],
-        requisites: [{ type: String, required: true }],
-        channel: { type: String, required: true },
-        location: { type: String, required: true },
-      },
-      project: {
-        name: String,
-        about: String,
-        startAt: Date,
-        weeks: Number,
-      },
-    },
-    upto: { type: Date, required: true },
     meta: {
-      expired: { type: Boolean, default: false },
-      closed: { type: Boolean, default: false },
-      favs: { type: Number, default: 0 },
-      visits: { type: Number, default: 0 },
+      expired: { type: Boolean, required: true, default: false },
+      closed: { type: Boolean, required: true, default: false },
+      favs: { type: Number, required: true, default: 0 },
+      visits: { type: Number, required: true, default: 0 },
     },
+    header: { type: String, required: true },
+    project: ProjectSchema,
+    wanted: {
+      role: {
+        position: PositionSchema,
+        tasks: [String],
+      },
+      number: { type: Number, required: true, default: 1 },
+      requisites: [{ type: String, required: true }],
+      meeting: [{ type: String, required: true, enum: ['온라인', '오프라인'] }],
+      location: { type: String, required: true },
+    },
+    until: { type: Date, required: true },
     tags: [String],
-    applies: [{ type: Schema.Types.ObjectId, ref: 'Apply' }],
+    author: { type: Schema.Types.ObjectId, required: true, ref: 'User' }, // one to one
+    applications: [{ type: Schema.Types.ObjectId, ref: 'Application' }], // one to many
   },
   { timestamps: true },
 );

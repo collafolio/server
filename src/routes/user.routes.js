@@ -1,8 +1,8 @@
-const verifyUser = require('../middlewares/verifyUser');
+const { version } = require('mongoose');
 const controller = require('../controllers/user.controller');
 
 module.exports = (router) => {
-  router.get('/users/:userid/profile', [verifyUser], controller.getUserProfile);
-  router.get('/users/:userid/posts', [verifyUser], controller.getUserPosts);
-  router.get('/users/:userid/applies', [verifyUser], controller.getUserApplies);
+  router.get('/users/:user_id/resume', controller.getUserResume);
+  router.get('/users/:user_id/posts', controller.getUserPosts);
+  router.get('/users/:user_id/applications', controller.getUserApplications);
 };

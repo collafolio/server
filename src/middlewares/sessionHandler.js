@@ -23,7 +23,7 @@ exports.checkDuplicateEmail = (req, res, next) => {
     .then((user) => {
       if (user) {
         return res
-          .status(400)
+          .status(409)
           .send({ status: 'error', message: 'email already exists' });
       }
       next();
@@ -37,7 +37,7 @@ exports.checkDuplicateLogin = (req, res, next) => {
   const accessToken = req.cookies['accessToken'];
   if (accessToken) {
     return res
-      .status(401)
+      .status(409)
       .send({ status: 'error', message: 'user already logged in' });
   }
   next();
@@ -48,6 +48,7 @@ exports.createLocalUser = (req, res, next) => {
     .createUserByEmail(req.body.email)
     .then(async (user) => {
       req.user = user;
+      res.status(201);
       next();
     })
     .catch((err) => {
@@ -65,6 +66,7 @@ exports.findLocalUser = (req, res, next) => {
           .send({ status: 'error', message: 'no user found' });
       }
       req.user = user;
+      res.status(200);
       next();
     })
     .catch((err) => {

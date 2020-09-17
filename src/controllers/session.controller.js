@@ -3,11 +3,12 @@ const msDay = 1000 * 60 * 60 * 24;
 
 exports.loginUser = async (req, res, next) => {
   const { id, email, meta } = req.user;
+  console.log(res.statusCode);
   try {
     const accessToken = await generateToken(id); // 토큰 option 설정하려면 object type으로 넣기
     const refreshToken = await generateToken(id);
+    // statusCode는 이전 미들웨어에서 설정됨
     res
-      .status(201)
       .cookie('accessToken', accessToken, {
         httpOnly: true, // used only when http transaction - prevent XSS - document.cookie manipulation
         maxAge: msDay * 7, // reduce CSRF risk

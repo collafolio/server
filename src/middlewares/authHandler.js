@@ -1,30 +1,29 @@
 const { generateToken, verifyToken } = require('../utils/tokenUtils');
 
-exports.verifyUser = (req, res, next, userId) => {
-  // const userId = req.params.userid || req.body.id;
+exports.verifyUser = async (req, res, next, userId) => {
   const accessToken = req.cookies['accessToken'];
-  if (!userId || !accessToken) {
-    return res.status(400).send({
-      // 값이 없을 때는 400
+  if (!userId) {
+    return res.sendStatus(400);
+  }
+  if (!accessToken) {
+    return res.status(401).send({
       status: 'error',
-      message: 'neither userId or accessToken provided',
+      message: 'no accesstoken provided',
     });
   }
-  verifyToken(accessToken)
-    .then((decoded) => {
-      // console.log('Decoded token: ', decoded);
-      if (decoded !== userId) {
-        return res.status(422).send({
-          // 값이 invalid시 422
-          status: 'error',
-          message: 'invalid userId or accessToken provided',
-        });
-      }
-      next();
-    })
-    .catch((err) => {
-      next(err);
-    });
+  try {
+    const decoded = await verifyToken(accessToken);
+    if (decoded !== userId) {
+      return res.status(422).send({
+        status: 'error',
+        message: 'invalid userid provided',
+        data: userId,
+      });
+    }
+    next();
+  } catch (err) {
+    next(err);
+  }
 };
 
 // 클라이언트 접속시, 홈에서 요청되는 GET /posts 라우트의 미들웨어로 사용한다

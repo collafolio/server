@@ -6,6 +6,6 @@ exports.getUserPosts = (req, res) => {
   res.status(200).end();
 };
 
-exports.getUserApplications = (req, res) => {
+exports.getUserApplies = (req, res) => {
   res.status(200).end();
 };

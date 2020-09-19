@@ -20,7 +20,7 @@ const UserSchema = new Schema(
     },
     resume: { type: Schema.Types.ObjectId, ref: 'Resume' }, // one to one
     posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }], // one to many
-    applications: [{ type: Schema.Types.ObjectId, ref: 'Application' }], // one to many
+    applies: [{ type: Schema.Types.ObjectId, ref: 'Apply' }], // one to many
   },
   { timestamps: true },
 );

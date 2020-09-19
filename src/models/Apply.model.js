@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-const ApplicationSchema = new Schema({
+const ApplySchema = new Schema({
   meta: {
     watched: { type: Boolean, required: true, default: false },
     accepted: { type: Boolean, required: true, default: false }, // true시 지원자 email 제공 (이후 전용 DM 채널 만들어주거나 바로 면접 진행할 수 있는 시스템 구축)
@@ -13,4 +13,4 @@ const ApplicationSchema = new Schema({
   applyTo: { type: Schema.Types.ObjectId, required: true, ref: 'Post' }, // one to one
 });
 
-module.exports = mongoose.model('Application', ApplicationSchema);
+module.exports = mongoose.model('Apply', ApplySchema);

@@ -1,9 +1,9 @@
-const controller = require('../controllers/post.controller');
+const postController = require('../controllers/post.controller');
 
-module.exports = (router) => {
-  router.get('/posts', controller.getAllPosts);
-  router.get('/posts/:post_id', controller.getPost);
-  router.post('/posts', controller.createPost);
-  router.patch('/posts/:post_id', controller.updatePost);
-  router.delete('/posts/:post_id', controller.deletePost);
+module.exports = router => {
+  router.get('/posts', postController.getAllPosts);
+  router.get('/posts/:postId', postController.getPost);
+  router.post('/posts', postController.createPost);
+  router.patch('/posts/:postId', postController.updatePost);
+  router.delete('/posts/:postId', postController.deletePost);
 };

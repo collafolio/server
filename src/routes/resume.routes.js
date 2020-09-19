@@ -1,7 +1,7 @@
-const controller = require('../controllers/resume.controller');
+const resumeController = require('../controllers/resume.controller');
 
-module.exports = (router) => {
-  router.post('/resumes', controller.createResume);
-  router.patch('/resumes/:resume_id', controller.updateResume);
-  router.delete('/resumes/:resume_id', controller.deleteResume);
+module.exports = router => {
+  router.post('/resumes', resumeController.createResume);
+  router.patch('/resumes/:resumeId', resumeController.updateResume);
+  router.delete('/resumes/:resumeId', resumeController.deleteResume);
 };

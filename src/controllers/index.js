@@ -1,5 +1,5 @@
 module.exports = {
-  sessionController: require('./session.controller'),
+  authController: require('./auth.controller'),
   userController: require('./user.controller'),
   resumeController: require('./resume.controller'),
   postController: require('./post.controller'),

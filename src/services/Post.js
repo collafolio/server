@@ -4,6 +4,6 @@ exports.dropCollection = () => {
   return Post.collection.drop();
 };
 
-exports.deletePostsByUserId = (userId) => {
-  return Post.deleteMany({ author: userId }).exec();
+exports.deleteManyByUserId = userId => {
+  return Post.deleteMany({ author: userId });
 };

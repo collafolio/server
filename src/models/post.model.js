@@ -37,7 +37,6 @@ const PostSchema = new Schema(
     until: { type: Date, required: true },
     tags: [String],
     author: { type: Schema.Types.ObjectId, required: true, ref: 'User' }, // one to one
-    applications: [{ type: Schema.Types.ObjectId, ref: 'Application' }], // one to many
   },
   { timestamps: true },
 );

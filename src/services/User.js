@@ -4,14 +4,14 @@ exports.dropCollection = () => {
   return User.collection.drop();
 };
 
-exports.createUserByEmail = (email) => {
+exports.createWithEmail = email => {
   return User.create({ email: email }); // return Promise
 };
 
-exports.findUserByEmail = (email) => {
+exports.findOneByEmail = email => {
   return User.findOne({ email: email }).exec();
 };
 
-exports.deleteUserById = (userId) => {
-  return User.deleteOne({ _id: userId }).exec();
+exports.deleteOneByUserId = userId => {
+  return User.deleteOne({ _id: userId });
 };

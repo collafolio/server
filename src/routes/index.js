@@ -2,10 +2,10 @@ const router = require('express').Router();
 const authHandler = require('../middlewares/authHandler');
 const errorHandler = require('../middlewares/errorHandler');
 
-// user_id 파라미터가 들어가는 모든 엔드포인트에 대해 미들웨어 적용
-router.param('user_id', authHandler.verifyUser);
+// userId 파라미터가 들어가는 모든 엔드포인트에 대해 미들웨어 적용
+router.param('userId', authHandler.verifyUser);
 
-require('./session.routes')(router);
+require('./auth.routes')(router);
 require('./user.routes')(router);
 require('./resume.routes')(router);
 require('./post.routes')(router);

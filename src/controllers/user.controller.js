@@ -1,30 +1,31 @@
 const userService = require('../services/User');
 
 exports.createUser = async (req, res, next) => {
-  try {
-    const user = userService.createWithEmail(req.body.email);
-    req.user = user; // 다음 핸들러로 데이터 넘기기
-    res.status(201);
-    next();
-  } catch (err) {
-    next(err);
-  }
+  userService
+    .createWithEmail(req.body.email)
+    .then(user => {
+      req.user = user;
+      res.status(201);
+      next();
+    })
+    .catch(next);
 };
 
 exports.findUser = async (req, res, next) => {
-  try {
-    const user = userService.findOneByEmail(req.body.email); // Promise reject는 catch에서 처리
-    if (!user) {
-      return res
-        .status(404)
-        .send({ status: 'error', message: 'user not found' });
-    }
-    req.user = user;
-    res.status(200);
-    next();
-  } catch (err) {
-    next(err);
-  }
+  userService
+    .findOneByEmail(req.body.email)
+    .then(user => {
+      if (!user) {
+        return res
+          .status(404)
+          .send({ status: 'error', message: 'user not found' });
+      }
+      console.log(user);
+      req.user = user;
+      res.status(200);
+      next();
+    })
+    .catch(next);
 };
 
 exports.deleteUser = async (req, res, next) => {
@@ -39,7 +40,7 @@ exports.deleteUser = async (req, res, next) => {
       }
       next();
     })
-    .catch(err => next(err));
+    .catch(next);
 };
 
 exports.getUserResume = (req, res, next) => {

@@ -5,13 +5,16 @@ exports.dropCollection = () => {
 };
 
 exports.createWithEmail = email => {
-  return User.create({ email: email }); // return Promise
+  const user = new User({ email: email });
+  return user.save();
 };
 
 exports.findOneByEmail = email => {
-  return User.findOne({ email: email }).exec();
+  const query = User.findOne({ email: email });
+  return query.exec();
 };
 
 exports.deleteOneByUserId = userId => {
-  return User.deleteOne({ _id: userId });
+  const query = User.findByIdAndDelete(userId);
+  return query.exec();
 };

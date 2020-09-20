@@ -19,5 +19,5 @@ exports.deleteUserResume = async (req, res, next) => {
       console.log(result);
       next();
     })
-    .catch(err => next(err));
+    .catch(next);
 };

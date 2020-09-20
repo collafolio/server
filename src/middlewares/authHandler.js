@@ -13,7 +13,7 @@ exports.verifyUser = async (req, res, next, userId) => {
   }
   try {
     const decoded = await verifyToken(accessToken);
-    if (decoded !== userId) {
+    if (decoded.id !== userId) {
       return res.status(422).send({
         status: 'error',
         message: 'invalid userid provided',

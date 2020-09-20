@@ -1,13 +1,17 @@
-const moment = require('moment');
+const moment = require('moment-timezone');
 
-exports.setNow = () => moment(new Date()).format('YYYY-MM-DD HH:mm');
+const toSeoulDate = function (date) {
+  return moment(date).tz('Asia/Seoul').format('YYYY-MM-DD HH:mm');
+};
 
-exports.setAfter = days =>
-  moment(new Date()).add(days, 'days').format('YYYY-MM-DD HH:mm');
-
-exports.isExpired = date => {
-  if (date < new Date()) {
-    return true;
+exports.translateDate = function (obj) {
+  obj.createdAt = toSeoulDate(obj.createdAt);
+  obj.updatedAt = toSeoulDate(obj.updatedAt);
+  if (obj.expiresAt) {
+    obj.expiresAt = toSeoulDate(obj.expiresAt);
   }
-  return false;
+};
+
+exports.toDateAfter = function (date, days) {
+  return moment(date).add(days, 'days');
 };

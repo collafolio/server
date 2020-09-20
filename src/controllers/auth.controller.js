@@ -5,8 +5,8 @@ exports.createTokens = async (req, res, next) => {
   const { id, email, meta } = req.user;
   console.log(res.statusCode);
   try {
-    const accessToken = await generateToken(id); // 토큰 option 설정하려면 object type으로 넣기
-    const refreshToken = await generateToken(id);
+    const accessToken = await generateToken({ id }); // 토큰 option 설정하려면 object type으로 넣기
+    const refreshToken = await generateToken({ id });
     // statusCode는 이전 미들웨어에서 설정됨
     res
       .cookie('acct', accessToken, {

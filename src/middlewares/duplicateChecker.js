@@ -11,9 +11,7 @@ exports.checkDuplicateEmail = (req, res, next) => {
       }
       next();
     })
-    .catch(err => {
-      next(err);
-    });
+    .catch(next);
 };
 
 exports.checkDuplicateLogin = (req, res, next) => {

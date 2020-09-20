@@ -4,6 +4,7 @@ const { local, production } = require('./configs');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
+const helmet = require('helmet');
 const routes = require('./routes');
 
 const productionEnv = process.env.NODE_ENV === 'production';
@@ -26,6 +27,7 @@ app.use(
   }),
 );
 app.use(morgan(morganFormat));
+app.use(helmet());
 
 app.get('/', (req, res) => {
   res.status(200).send({ message: 'Welcome to Collafolio server' });
@@ -50,7 +52,7 @@ mongoose
       console.log(`Server listen on ${port}`);
     });
   })
-  .catch((err) => {
+  .catch(err => {
     console.error(err);
     process.exit();
   });

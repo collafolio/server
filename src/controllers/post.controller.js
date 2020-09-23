@@ -24,7 +24,9 @@ exports.createPost = (req, res, next) => {
   postService
     .create(req.body)
     .then(post => {
+      console.log(post);
       translateDate(post);
+      console.log(post);
       return res.status(201).json(post);
     })
     .catch(next);

@@ -15,7 +15,7 @@ exports.checkDuplicateEmail = (req, res, next) => {
 };
 
 exports.checkDuplicateLogin = (req, res, next) => {
-  const accessToken = req.cookies['acct'];
+  const accessToken = req.cookies['accessToken'];
   if (accessToken) {
     return res
       .status(409)

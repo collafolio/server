@@ -1,17 +1,17 @@
 const { authController, userController } = require('../controllers');
-const { verifyEmail } = require('../middlewares/typeValidator');
+const { validateEmail } = require('../middlewares/typeValidator');
 const { checkDuplicateLogin } = require('../middlewares/duplicateChecker');
-const { verifyUser } = require('../middlewares/authHandler');
+const authUser = require('../middlewares/authUser');
 
 module.exports = router => {
   router.post(
     '/auth', // create user auth tokens (login)
-    [verifyEmail, checkDuplicateLogin, userController.findUser],
+    [validateEmail, checkDuplicateLogin, userController.findUser],
     authController.createTokens,
   );
   router.delete(
     '/auth', // delete user auth tokens (logout)
-    [verifyUser],
+    [authUser],
     authController.deleteTokens,
   );
 };

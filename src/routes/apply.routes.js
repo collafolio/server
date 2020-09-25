@@ -1,12 +1,12 @@
 const applyController = require('../controllers/apply.controller');
-const { verifyUser } = require('../middlewares/authHandler');
+const authUser = require('../middlewares/authUser');
 
 module.exports = router => {
-  router.post('/applies', [verifyUser], applyController.createApply);
+  router.post('/applies', [authUser], applyController.createApply);
   router.patch(
     '/applies/:applyId',
-    [verifyUser],
+    [authUser],
     applyController.updateApplyStatus,
   );
-  router.delete('/applies/:applyId', [verifyUser], applyController.deleteApply);
+  router.delete('/applies/:applyId', [authUser], applyController.deleteApply);
 };

@@ -1,7 +1,7 @@
 const { verifyToken } = require('../utils/tokenUtils');
 const msDay = 1000 * 60 * 60 * 24;
 
-exports.verifyUser = async (req, res, next) => {
+const authUser = async (req, res, next) => {
   const userId = req.params.userId || req.body.createdBy;
   const accessToken = req.cookies['accessToken'];
   const refreshToken = req.cookies['refreshToken'];
@@ -54,3 +54,5 @@ exports.verifyUser = async (req, res, next) => {
     }
   }
 };
+
+module.exports = authUser;

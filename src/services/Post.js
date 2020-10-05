@@ -5,10 +5,7 @@ exports.dropCollection = () => {
 };
 
 exports.retrieve = () => {
-  const query = Post.find({})
-    .populate('createdBy')
-    .select('-project')
-    .select('createdBy._id createdBy.email'); // exclude data for card display
+  const query = Post.find({}).populate('createdBy');
   return query.exec();
 };
 
@@ -23,10 +20,33 @@ exports.create = body => {
 };
 
 exports.updateByPostId = (postId, body) => {
-  const query = Post.findByIdAndUpdate(postId, body, {
-    upsert: true,
-    new: true,
-  });
+  const { header, wanted, tags } = body;
+  const query = Post.findByIdAndUpdate(
+    postId,
+    {
+      $set: {
+        header: header,
+        wanted: {
+          category: wanted.category,
+          position: wanted.position,
+          task: wanted.task,
+          number: wanted.number,
+          location: wanted.location,
+        },
+      },
+      $push: {
+        wanted: {
+          requisites: wanted.requisites,
+          meeting: wanted.meeting,
+        },
+        tags: tags,
+      },
+    },
+    {
+      upsert: true,
+      new: true,
+    },
+  );
   return query.exec();
 };
 

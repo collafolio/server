@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { toDateAfter, toSeoulDate } = require('../utils/dateUtils');
+const { toDateAfter } = require('../utils/dateUtils');
 
 const ProjectSchema = new Schema({
   name: { type: String, required: true },

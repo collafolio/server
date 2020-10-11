@@ -4,7 +4,7 @@ exports.dropCollection = () => {
   return Post.collection.drop();
 };
 
-exports.retrieve = () => {
+exports.retrieveAll = () => {
   const query = Post.find({}).populate('createdBy');
   return query.exec();
 };
@@ -20,30 +20,28 @@ exports.create = body => {
 };
 
 exports.updateByPostId = (postId, body) => {
-  const { header, wanted, tags } = body;
+  // Batch request from client (No partial request)
+  console.log(body);
+  // const { header, wanted, tags } = body;
   const query = Post.findByIdAndUpdate(
     postId,
     {
-      $set: {
-        header: header,
-        wanted: {
-          category: wanted.category,
-          position: wanted.position,
-          task: wanted.task,
-          number: wanted.number,
-          location: wanted.location,
-        },
-      },
+      // $set: {
+      //   header: header,
+      //   wanted: {
+      //     category: wanted.category,
+      //     position: wanted.position,
+      //     task: wanted.task,
+      //     number: wanted.number,
+      //   },
+      // },
       $push: {
-        wanted: {
-          requisites: wanted.requisites,
-          meeting: wanted.meeting,
-        },
-        tags: tags,
+        'wanted.requisites': body.wanted.requisites,
+        tags: body.tags,
       },
     },
     {
-      upsert: true,
+      // upsert: true,
       new: true,
     },
   );

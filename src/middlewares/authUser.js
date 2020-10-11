@@ -12,10 +12,10 @@ const authUser = async (req, res, next) => {
   if (!accessToken && !refreshToken) {
     return res.status(401).send({
       status: 'error',
-      message: 'neither auth tokens provided (login needed)',
+      message: 'neither auth-tokens provided (login needed)',
     });
   }
-  // verify refresh_token (only when refresh_token alive)
+  // verify refresh-token (only when refresh-token alive)
   // 직접 로그인한 후로부터 7일이 지나 access 토큰만 만료되어 삭제되었을 때
   if (!accessToken) {
     try {
@@ -23,11 +23,11 @@ const authUser = async (req, res, next) => {
       if (decoded.id !== userId) {
         return res.status(401).send({
           status: 'error',
-          message: 'invalid refresh token provided',
+          message: 'invalid refresh-token provided',
         });
       }
       // re-generate access_token cookie with refresh_token value
-      console.log('Re-generate access-token with refresh-token');
+      console.log('refresh access-token');
       res.cookie('accessToken', refreshToken, {
         httpOnly: true,
         maxAge: msDay * 7,

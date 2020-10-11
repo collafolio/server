@@ -1,5 +1,5 @@
 const { authController, userController } = require('../controllers');
-const { validateEmail } = require('../middlewares/typeValidator');
+const { validateEmail } = require('../middlewares/bodyValidator');
 const { checkDuplicateLogin } = require('../middlewares/duplicateChecker');
 const authUser = require('../middlewares/authUser');
 

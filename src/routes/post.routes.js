@@ -1,6 +1,6 @@
 const postController = require('../controllers/post.controller');
 const authUser = require('../middlewares/authUser');
-const { validatePost } = require('../middlewares/typeValidator');
+const { validatePost } = require('../middlewares/bodyValidator');
 
 module.exports = router => {
   router.get('/posts', postController.getAllPosts);

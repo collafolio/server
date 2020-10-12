@@ -41,7 +41,7 @@ const PostSchema = new Schema(
   { timestamps: true },
 );
 
-PostSchema.pre('save', function (next) {
+PostSchema.pre('init', function (next) {
   this.meta.expired = this.expiresAt < Date.now();
   next();
 });

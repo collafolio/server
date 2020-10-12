@@ -11,7 +11,7 @@ exports.getAllPosts = (req, res, next) => {
 
 exports.getPost = (req, res, next) => {
   postService
-    .retrieveOneByPostId(req.params.postId)
+    .retrieveOne(req.params.postId)
     .then(post => {
       return res.status(200).json(post);
     })
@@ -20,7 +20,7 @@ exports.getPost = (req, res, next) => {
 
 exports.createPost = (req, res, next) => {
   postService
-    .create(req.body)
+    .createOne(req.body)
     .then(post => {
       return res.status(201).json(post);
     })
@@ -29,7 +29,7 @@ exports.createPost = (req, res, next) => {
 
 exports.updatePost = (req, res, next) => {
   postService
-    .updateByPostId(req.params.postId, req.body)
+    .updateOne(req.params.postId, req.body)
     .then(post => {
       return res.status(200).json(post);
     })
@@ -38,7 +38,7 @@ exports.updatePost = (req, res, next) => {
 
 exports.deletePost = (req, res, next) => {
   postService
-    .deleteOneByPostId(req.params.postId)
+    .deleteOne(req.params.postId)
     .then(result => {
       console.log(result);
       return res.status(204).end();
@@ -48,7 +48,7 @@ exports.deletePost = (req, res, next) => {
 
 exports.deleteUserPosts = (req, res, next) => {
   postService
-    .deleteManyByUserId(req.params.userId)
+    .deleteAll(req.params.userId)
     .then(result => {
       console.log(result);
       next();

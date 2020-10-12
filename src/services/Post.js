@@ -9,51 +9,54 @@ exports.retrieveAll = () => {
   return query.exec();
 };
 
-exports.retrieveOneByPostId = postId => {
-  const query = Post.findById(postId);
-  return query.exec();
-};
+exports.retrieveOne = (postId) => {
+  // partial update
+  const query = Post.findByIdAndUpdate(postId, {
+    $inc: { 'meta.visits': 1 }
+  }, { new: true });
 
-exports.create = body => {
+  return query.exec();
+}
+
+exports.createOne = body => {
   const post = new Post(body);
   return post.save();
 };
 
-exports.updateByPostId = (postId, body) => {
+exports.updateOne = (postId, body) => {
   // Batch request from client (No partial request)
   console.log(body);
-  // const { header, wanted, tags } = body;
+  const { header, wanted, tags } = body;
   const query = Post.findByIdAndUpdate(
     postId,
     {
-      // $set: {
-      //   header: header,
-      //   wanted: {
-      //     category: wanted.category,
-      //     position: wanted.position,
-      //     task: wanted.task,
-      //     number: wanted.number,
-      //   },
-      // },
+      $set: {
+        header: header,
+        'wanted.category': wanted.category,
+        'wanted.position': wanted.position,
+        'wanted.task': wanted.task,
+        'wanted.number': wanted.number,
+      },
       $push: {
-        'wanted.requisites': body.wanted.requisites,
-        tags: body.tags,
+        'wanted.requisites': wanted.requisites,
+        'wanted.locations': wanted.locations,
+        tags: tags,
       },
     },
     {
-      // upsert: true,
+      upsert: true,
       new: true,
     },
   );
   return query.exec();
 };
 
-exports.deleteOneByPostId = postId => {
+exports.deleteOne = postId => {
   const query = Post.findByIdAndDelete(postId);
   return query.exec(); // return execution result (Promise)
 };
 
-exports.deleteManyByUserId = userId => {
+exports.deleteAll = userId => {
   const query = Post.findOneAndDelete({ author: userId });
   return query.exec();
 };

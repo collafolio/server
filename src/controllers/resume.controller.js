@@ -12,12 +12,12 @@ exports.deleteResume = (req, res) => {
   res.status(200).end();
 };
 
-exports.deleteUserResume = async (req, res, next) => {
+exports.deleteUserResume = (req, res, next) => {
   resumeService
     .deleteOneByUserId(req.params.userId)
     .then(result => {
       console.log(result);
       next();
     })
-    .catch(err => next(err));
+    .catch(next);
 };

@@ -8,16 +8,6 @@ const UserSchema = new Schema(
       updated: { type: Boolean, required: true, default: false },
     },
     email: { type: String, required: true, unique: true },
-    social: {
-      facebook: {
-        id: String,
-        accessToken: String,
-      },
-      google: {
-        id: String,
-        accessToken: String,
-      },
-    },
     resume: { type: Schema.Types.ObjectId, ref: 'Resume' }, // one to one
     posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }], // one to many
     applies: [{ type: Schema.Types.ObjectId, ref: 'Apply' }], // one to many

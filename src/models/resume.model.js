@@ -25,7 +25,7 @@ const ResumeSchema = new Schema({
   location: { type: String, required: true },
   privacy: {
     phone: String,
-    gender: { type: String, enum: ['남', '여'] },
+    gender: { type: String, enum: ['male', 'female'] },
     age: Number,
   },
   positions: [PositionSchema],

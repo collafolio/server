@@ -1,7 +1,12 @@
 const resumeController = require('../controllers/resume.controller');
+const authUser = require('../middlewares/authUser');
 
 module.exports = router => {
-  router.post('/resumes', resumeController.createResume);
-  router.patch('/resumes/:resumeId', resumeController.updateResume);
-  router.delete('/resumes/:resumeId', resumeController.deleteResume);
+  router.post('/resumes', [authUser], resumeController.createResume);
+  router.patch('/resumes/:resumeId', [authUser], resumeController.updateResume);
+  router.delete(
+    '/resumes/:resumeId',
+    [authUser],
+    resumeController.deleteResume,
+  );
 };

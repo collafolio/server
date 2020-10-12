@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const routes = require('./routes');
+require('colors');
 
 const productionEnv = process.env.NODE_ENV === 'production';
 const mongodb = productionEnv ? production.mongodb : local.mongodb;
@@ -42,6 +43,7 @@ mongoose
     useUnifiedTopology: true,
     useNewUrlParser: true,
     useCreateIndex: true,
+    useFindAndModify: false,
   })
   .then(() => {
     console.log('Successfully connected to mongodb');

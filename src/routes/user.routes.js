@@ -1,20 +1,20 @@
-const typeValidator = require('../middlewares/typeValidator');
-const duplicateChecker = require('../middlewares/duplicateChecker');
-const deleteUserDataAll = require('../middlewares/deleteUserDataAll');
 const { userController, authController } = require('../controllers');
+const { validateEmail } = require('../middlewares/bodyValidator');
+const { checkDuplicateEmail } = require('../middlewares/duplicateChecker');
+const authUser = require('../middlewares/authUser');
 
 module.exports = router => {
   router.post(
     '/users',
-    [
-      typeValidator.verifyEmail,
-      duplicateChecker.checkDuplicateEmail,
-      userController.createUser,
-    ],
+    [validateEmail, checkDuplicateEmail, userController.createUser],
     authController.createTokens,
   );
-  router.delete('/users/:userId', deleteUserDataAll);
-  router.get('/users/:userId/resume', userController.getUserResume);
-  router.get('/users/:userId/posts', userController.getUserPosts);
-  router.get('/users/:userId/applications', userController.getUserApplications);
+  // router.delete('/users/:userId', [authUser], ); // fix!
+  router.get('/users/:userId/resume', [authUser], userController.getUserResume);
+  router.get('/users/:userId/posts', [authUser], userController.getUserPosts);
+  router.get(
+    '/users/:userId/applications',
+    [authUser],
+    userController.getUserApplications,
+  );
 };
